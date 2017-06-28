@@ -80,9 +80,133 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!--<DataTemplate x:Key="SidePaneTemplate">
+            <UserControl>
+                <UserControl.Resources>
+                    <ItemsPanelTemplate x:Key="HorizontalStackPanel">
+                        <ItemsStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                    <ItemsPanelTemplate x:Key="VerticalStackPanel">
+                        <ItemsStackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </UserControl.Resources>
+                <ListView x:Name="rootview" Margin="0,10,0,0" SelectedIndex="{Binding CurrentSelectedPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ListView_SelectionChanged" SelectionMode="Single">
+                    <ListView.Items>               
+                        <ListViewItem HorizontalContentAlignment="Center">
+                            <StackPanel>
+                                <FontIcon Margin="5" FontFamily="Segoe MDL2 Assets" FontSize="{StaticResource ComboBoxArrowThemeFontSize}" Glyph="&#xE8B2;"/>
+                                <TextBlock Text="Movies" TextAlignment="Center" />
+                            </StackPanel>
+                        </ListViewItem>                        
+                        <ListViewItem HorizontalContentAlignment="Center">
+                            <StackPanel>
+                                <FontIcon Margin="5" FontFamily="Segoe MDL2 Assets" FontSize="{StaticResource ComboBoxArrowThemeFontSize}" Glyph="&#xE7F4;"/>
+
+                                <TextBlock Text="TV Shows" />
+                            </StackPanel>
+                        </ListViewItem>              
+                        <ListViewItem HorizontalContentAlignment="Center">
+                            <StackPanel>
+                                <FontIcon Margin="5" FontFamily="Segoe MDL2 Assets" FontSize="{StaticResource ComboBoxArrowThemeFontSize}" Glyph="&#xE721;"/>
+
+                                <TextBlock Text="Search" TextAlignment="DetectFromContent" />
+                            </StackPanel>
+                        </ListViewItem>
+
+                        <ListViewItem HorizontalContentAlignment="Center">
+                            <StackPanel>
+                                <FontIcon Margin="5" FontFamily="Segoe MDL2 Assets" FontSize="{StaticResource ComboBoxArrowThemeFontSize}" Glyph="&#xE728;"/>
+                                <TextBlock Text="Favorites"/>
+                            </StackPanel>
+                        </ListViewItem>
+
+                        <ListViewItem HorizontalContentAlignment="Center">
+                            <StackPanel>
+                                <FontIcon Margin="5" FontFamily="Segoe MDL2 Assets" FontSize="{StaticResource ComboBoxArrowThemeFontSize}" Glyph="&#xE713;" />
+                                <TextBlock Text="Settings"/>
+                            </StackPanel>
+                        </ListViewItem>    
+                    </ListView.Items>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup>
+                            <VisualState x:Name="w_state">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="0" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Target="rootview.ItemsPanel" Value="{StaticResource VerticalStackPanel}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="n_state">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="700" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Target="rootview.ItemsPanel" Value="{StaticResource  HorizontalStackPanel}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </ListView>
+            </UserControl>
+        </DataTemplate>-->
+
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <local:MyControl Content="hello"  MyCorner="20"/>
-    </Grid>
+        <ListView x:Name="listView" ItemsSource="{Binding}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:MyUserControl1/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+
+        </ListView>
+        <VisualStateManager.VisualStateGroups>
+
+            <!--<VisualStateGroup>
+                    <VisualState x:Name="NormalStateReadView">
+                        -->
+            <!-- VisualState to be triggered when window width is <720 effective pixels -->
+            <!--
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="0" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Target="listView.Background" Value="Red" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>-->
+
+
+            <VisualStateGroup>
+                <VisualState x:Name="LargeStateReadView">
+
+                    <!--VisualState to be triggered when window width is >=720 effective pixels-->
+
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="listView.Background" Value="Blue" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="NormalStateReadView">
+
+                    <!--VisualState to be triggered when window width is <720 effective pixels-->
+
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="listView.Background" Value="Red" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </StackPanel>
 </Page>

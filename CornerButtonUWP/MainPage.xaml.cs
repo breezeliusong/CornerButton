@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,9 +23,22 @@ namespace CornerButtonUWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public ObservableCollection<Item> MyItems { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
+            MyItems = new ObservableCollection<Item>();
+            MyItems.Add(new Item { MyItem = "Hello world0" });
+            MyItems.Add(new Item { MyItem = "Hello world1" });
+            MyItems.Add(new Item { MyItem = "Hello world2" });
+            MyItems.Add(new Item { MyItem = "Hello world3" });
+            MyItems.Add(new Item { MyItem = "Hello world4" });
+            listView.DataContext = MyItems;
         }
+    }
+
+    public class Item
+    {
+        public string MyItem { get; set; }
     }
 }
